@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\todolist;
+use DB;
 class Apicontoller extends Controller
 {
     /**
@@ -11,9 +12,15 @@ class Apicontoller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    
+     public function loadview() {
+        // dd("inside");
+        return view('admin.todoapi');
+    }
+    public function index(todolist $todolist) {
+        // dd("inside");
+        // return view('admin.todo',compact('todo','todoById'));
+        return todolist::get();
     }
 
     public function api()

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\todolist;
 use Illuminate\Http\Request;
+use App\Models\todolist;
 use DB;
 class TodolistController extends Controller
 {
@@ -48,12 +48,16 @@ class TodolistController extends Controller
      * @param  \App\Models\todolist  $todolist
      * @return \Illuminate\Http\Response
      */
-    public function show()
-
-    {
+    public function show($id = "",todolist $todolist) {
+        // dd($id);
         $todo=todolist::get();
-        // dd($todo);
-        return view('admin.todo',compact('todo'));
+        if ($id != "") {
+            $todoById = $todolist::find($id);
+            return view('admin.todo',compact('todo','todoById'));
+        } else {
+            return view('admin.todo',compact('todo'));
+        }
+        
     }
 
     /**
@@ -64,9 +68,11 @@ class TodolistController extends Controller
      */
     public function edit($id,todolist $todolist)
     {
+        $todo = $todolist::find($id);
+        // dd($todo);
         // dd("inside here",$id);
-        $data = $todolist::find($id);
-        return view('admin.todo',compact('todo'));
+        
+        return view('admin.edittodo',compact('todo'));
 
     }
 
@@ -77,8 +83,13 @@ class TodolistController extends Controller
      * @param  \App\Models\todolist  $todolist
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, todolist $todolist)
+    public function update($id,Request $request, todolist $todolist)
     {
+        $todo = $todolist::find($id);
+        $todo->title=$request->title;
+        $todo->status="pending";
+        $todo->save();
+        return redirect("todo");
         //
     }
 

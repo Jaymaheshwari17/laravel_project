@@ -131,118 +131,56 @@
 
   <div id="myDIV" class="header">
     <h2 style="margin:5px">My To Do List</h2>
-    <form method="post" action="@if(isset($todoById->title)) /updatetodo/{{$todoById->id}} @else savetododata @endif
- ">
+    <form method="post" action="">
       @csrf
-      <input type="text" name="title" value="{{ $todoById->title ?? '' }}"  id="myInput" placeholder="Title...">
-      <input type="submit" name="save" value=" @if(isset($todoById->title)) Update @else Save @endif
- " id="save">
+      <input type="text" name="title" id="myInput" placeholder="Title...">
+      <input type="submit" name="save" value="Save" id="save">
     </form>
 
 
     <!-- <span onclick="newElement()" class="addBtn">Add</span> -->
   </div>
+  <div class="col text-end">
+    <a class="btn btn-sm btn-primary" href="addnewprod">Add New</a>
+  </div>
   <table class="table table-striped table-bordered">
     <thead class="table-dark">
-      <ul id="myUL">
-        <div class="col text-end">
-          <a class="btn btn-sm btn-primary" href="addnewprod">Add New</a>
-        </div>
-        <tr>
-
-          <th>Title</th>
-          <th>status</th>
-
-        </tr>
-    </thead>
-    <tbody>
-
-      @foreach($todo as $data)
       <tr>
-        <td>{{ $data->title }}</td>
-        <td>{{ $data->status }}</td>
-
-        <td>
-          <!-- Query String START -->
-          <!-- <a href="editprod?id={{ $data->id }}">Edit</a>
-                                    <a href="deleteprod?id={{ $data->id }}">delete</a> -->
-          <!-- Query String END -->
-          <!-- URI START -->
-          <a href="/todo/{{ $data->id }}">Edit</a>
-          <a href="deletetodo/{{ $data->id }}">delete</a>
-          <!-- URI END -->
-        </td>
+        <th>Title</th>
+        <th>status</th>
+        <th>Action</th>
       </tr>
-      </ul>
-      @endforeach
+    </thead>
+    <tbody id="dipsList">
     </tbody>
   </table>
-
-
-
-
-
-
-
-  <!-- 
-<script>
-// Create a "close" button and append it to each list item
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
-}
-
-// Click on a close button to hide the current list item
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
-  }
-}
-
-// Add a "checked" symbol when clicking on a list item
-var list = document.querySelector('ul');
-list.addEventListener('click', function(ev) {
-  if (ev.target.tagName === 'LI') {
-    ev.target.classList.toggle('checked');
-  }
-}, false);
-
-// Create a new list item when clicking on the "Add" button
-function newElement() {
-  var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
-  var t = document.createTextNode(inputValue);
-  li.appendChild(t);
-  if (inputValue === '') {
-    alert("You must write something!");
-  } else {
-    document.getElementById("myUL").appendChild(li);
-  }
-  document.getElementById("myInput").value = "";
-
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
-
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
-    }
-  }
-}
-</script> -->
   </form>
+  <script>
+    async function getAllTodoList(params) {
+      await fetch("http://localhost:8000/todoapi").then((res) => res.json()).then((result) => {
+        console.log(result);
+        let HTML_List = ""
+        result.forEach(element => {
+          console.log(element.title);
+          HTML_List += `<tr>
+                          <td>${element.title}</td>
+                          <td>${element.status}</td>
+                          <td>
+                            
+                            ${element.id}
+                            <a href="editapi">Edit</a>
+                            <a href="deleteapi">Delete</a>
+                            
+                            </td>
+                        </tr>`
+        });
+        // console.log(document.getElementById("dipsList"));
+        document.getElementById("dipsList").innerHTML =HTML_List
+      })
+
+    }
+    getAllTodoList()
+  </script>
 </body>
 
 </html>

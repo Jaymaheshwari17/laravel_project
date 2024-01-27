@@ -135,7 +135,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-9">Edit todo list</div>
+                        <div class="col-9">add new todo</div>
                         <div class="col text-end">
                             
                         </div>
@@ -143,7 +143,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="" method="post">
+                    <form action="savetododata" method="post">
                         @csrf
                         {{--csrf_token()--}}
                         <div class="row my-2">

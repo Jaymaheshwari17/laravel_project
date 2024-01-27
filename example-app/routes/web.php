@@ -26,13 +26,16 @@ Route::view('/about','about');
 Route::get('/allproduct',[App\Http\Controllers\TestingController::class, 'index']);
 Route::get('/sendmail',[App\Http\Controllers\TestingController::class, 'sendmail']);
 Route::get('/email-test',[App\Http\Controllers\TestingController::class, 'emailtest']);
-Route::get('/todo',[App\Http\Controllers\TodolistController::class, 'show']);
+Route::get('/todo/{id?}',[App\Http\Controllers\TodolistController::class, 'show']);
 Route::post('/savetododata',[App\Http\Controllers\TodolistController::class, 'store']);
 Route::get('/edittodo/{id}',[App\Http\Controllers\TodolistController::class, 'edit']);
+Route::post('/updatetodo/{id}',[App\Http\Controllers\TodolistController::class, 'update']);
 
 Route::get('/deletetodo/{id}',[App\Http\Controllers\TodolistController::class, 'destroy']);
 
 
+Route::get('/viewtodoapi',[App\Http\Controllers\Apicontoller::class, 'loadview']);
+Route::resource('/todoapi',App\Http\Controllers\Apicontoller::class);
 
 Route::view('/addnewprod','addnewprod');
 // Route::get('email-test', function(){

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class todolist extends Model
 {
     use HasFactory;
+    
+
 }
