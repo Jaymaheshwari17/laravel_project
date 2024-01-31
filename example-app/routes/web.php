@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::view('/about','about');
-// Route::view('/todo','todo');
+// Route::view('/todoexample','todoexamle'); 
 
 Route::get('/allproduct',[App\Http\Controllers\TestingController::class, 'index']);
 Route::get('/sendmail',[App\Http\Controllers\TestingController::class, 'sendmail']);
@@ -31,10 +31,12 @@ Route::post('/savetododata',[App\Http\Controllers\TodolistController::class, 'st
 Route::get('/edittodo/{id}',[App\Http\Controllers\TodolistController::class, 'edit']);
 Route::post('/updatetodo/{id}',[App\Http\Controllers\TodolistController::class, 'update']);
 
-Route::get('/deletetodo/{id}',[App\Http\Controllers\TodolistController::class, 'destroy']);
+// Route::get('/deletetodo/{id}',[App\Http\Controllers\TodolistController::class, 'destroy']);
 
 
 Route::get('/viewtodoapi',[App\Http\Controllers\Apicontoller::class, 'loadview']);
+// Route::get('/deleteapicall',[App\Http\Controllers\Apicontoller::class, 'deleteapi']);
+
 Route::resource('/todoapi',App\Http\Controllers\Apicontoller::class);
 
 Route::view('/addnewprod','addnewprod');

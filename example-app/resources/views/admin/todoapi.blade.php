@@ -168,8 +168,8 @@
                           <td>
                             
                             ${element.id}
-                            <a href="editapi">Edit</a>
-                            <a href="deleteapi">Delete</a>
+                            <button onClick="deletetodo(${element.id})">Delete</button>
+                            <button onClick="deletetodo(${element.id})">Delete</button>
                             
                             </td>
                         </tr>`
@@ -178,8 +178,26 @@
         document.getElementById("dipsList").innerHTML =HTML_List
       })
 
+      
     }
     getAllTodoList()
+
+    function deletetodo(id){
+     fethc("http://localhost:8000/api/deletetodo/id").then((res)=>res.json()).then((result)=>{
+      console.log(result);
+      
+     })
+    }
+
+    deletetodo()
+
+
+    function updatetodo(id){
+     fethc("http://localhost:8000/updatetodo/id").then((res)=>res.json()).then((result)=>{
+      console.log(result);
+     })
+    }
+    updatetodo()
   </script>
 </body>
 

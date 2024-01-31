@@ -15,7 +15,7 @@ class TodolistController extends Controller
     public function index()
     {
         //
-    }
+    } 
 
     /**
      * Show the form for creating a new resource.
@@ -101,7 +101,7 @@ class TodolistController extends Controller
      */
     public function destroy($id,todolist $todolist)
     {
-
+        //  dd("hii");
         DB::connection()->enableQueryLog();
 
         $data = $todolist::find($id);

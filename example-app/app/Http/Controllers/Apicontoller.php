@@ -25,7 +25,7 @@ class Apicontoller extends Controller
 
     public function api()
     {
-        dd(hi);
+        
     }
 
     /**
@@ -55,9 +55,15 @@ class Apicontoller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id="",todolist $todolist)
     {
-        //
+        $todo=todolist::get();
+        if ($id != "") {
+            $todoById = $todolist::find($id);
+            return view('admin.todo',compact('todo','todoById'));
+        } else {
+            return view('admin.todo',compact('todo'));
+        }
     }
 
     /**
@@ -66,9 +72,13 @@ class Apicontoller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,todolist $todolist)
     {
-        //
+        $todo = $todolist::find($id);
+        // dd($todo);
+        // dd("inside here",$id);
+        
+        return view('admin.edittodo',compact('todo'));
     }
 
     /**
@@ -80,7 +90,7 @@ class Apicontoller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return view('admin.todoapi');
     }
 
     /**
@@ -89,8 +99,16 @@ class Apicontoller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,todolist $todolist)
     {
-        //
+        DB::connection()->enableQueryLog();
+
+        $data = $todolist::find($id);
+        $queries = DB::getQueryLog();
+        // dd($queries);
+
+        // dd($data);
+        return $data->delete(); 
+
     }
 }
